@@ -26,6 +26,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 5. I assume an Admin can review an individual user story multiple times (i.e. Accept -> Reject -> Accept the same user story)
 
+6. I assume for this iteration the auth token does not yet need to be stored in a secure HTTP-Only Cookie. For the sake of speed, I simply used browser local storage for now.
+
 ##  FULL create-react-app README DOCUMENTATION FOLLOWS BELOW 
 
 In the project directory, you can run:
