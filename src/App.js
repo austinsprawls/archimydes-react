@@ -4,6 +4,7 @@ import { Login } from './scenes/login/Login';
 import { CreateStory } from './scenes/createStory/CreateStory';
 import './App.css';
 import { ListStories } from './scenes/listStories/ListStories';
+import { ReviewStory } from './scenes/reviewStory/ReviewStory';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Switch>
         <Route path="/stories-create" component={CreateStory} />
         <Route path="/stories-list" component={ListStories} />
+        <Route path="/stories-review" render={props => <ReviewStory {...props} />}/>
         <Route path="/" component={Login} />
       </Switch>
     </Router>

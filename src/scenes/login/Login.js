@@ -24,9 +24,9 @@ export function Login({history}) {
             <Redirect push to="/stories-create" />
         );
     }
-    else if (userRole === 'admin') {
+    else if (userRole === 'Admin') {
         return (
-            <Redirect push to="/stories-review" />
+            <Redirect push to="/stories-list" />
         );
     }
 

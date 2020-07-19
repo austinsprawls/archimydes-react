@@ -1,17 +1,20 @@
 import React, {useState, useEffect} from 'react';
 import {getStories, selectStories, selectIsLoaded} from './listStoriesSlice';
 import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 
 export function ListStories() {
     const dispatch = useDispatch();
     const storiesData = useSelector(selectStories);
     const isLoaded = useSelector(selectIsLoaded);
-  
+    const  userRole = localStorage.getItem('userRole');
+   
     const [stories, setStories] = useState(storiesData)
     const [sortCol, setSortCol] = useState('');
     const [sortVal, setSortVal] = useState(0);
     const [typeFilter, setTypeFilter] = useState('');
+    const [selectedStory, setSelectedStory] = useState(false);
 
     const complexityMap = {
         low: 0,
@@ -28,7 +31,9 @@ export function ListStories() {
     }, [sortVal]);
 
     useEffect(() => {
-        setStories(storiesData.filter(story => story.type === typeFilter));
+        if (typeFilter) {
+            setStories(storiesData.filter(story => story.type === typeFilter));
+        }
     }, [typeFilter]);
    
     if (!isLoaded) {
@@ -64,8 +69,15 @@ export function ListStories() {
         setStories(sortedStories);
     }
 
-    const storyRows = stories.map(story => (
-        <tr key={story.id}>
+    function reviewStory(story) {
+        if (userRole === 'Admin') {
+            setSelectedStory(story);
+        }
+    }
+
+    const storyRows = stories.map(story => {
+        const color = story.status === 'accepted' ? 'green' : story.status === 'rejected' ? 'red' : 'black';
+        return <tr onClick={() => reviewStory(story)} key={story.id} style={{color}}>
             <th>{story.id}</th>
             <td>{story.summary}</td>
             <td>{story.description}</td>
@@ -74,7 +86,11 @@ export function ListStories() {
             <td>{story.estimatedHrs}</td>
             <td>{story.cost}</td>
         </tr>
-    ));
+    });
+
+    if (selectedStory) {
+        return <Redirect push to={{pathname: "/stories-review", state: { story: selectedStory }}} />
+    }
 
     return (
         <div className="container">
@@ -108,15 +124,6 @@ export function ListStories() {
                         </thead>
                         <tbody>
                             {storyRows}
-                            {/* <tr>
-                                <th>232443523</th>
-                                <td>REview</td>
-                                <td>Review the list</td>
-                                <td>Bug</td>
-                                <td>Hard</td>
-                                <td>8 hours</td>
-                                <td>3244</td>
-                            </tr> */}
                         </tbody>
                     </table>
                 </div>

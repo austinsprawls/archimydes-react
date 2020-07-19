@@ -40,7 +40,6 @@ export const login = (email, password, isAdmin) => async dispatch => {
 }
 
 export const selectRole = state => state.login.role;
-
 export const selectAuthToken = state => state.login.token;
 
 export default loginSlice.reducer;

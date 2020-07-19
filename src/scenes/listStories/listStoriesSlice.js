@@ -17,11 +17,21 @@ export const listStoriesSlice = createSlice({
             else {
                 state.stories = action.payload;
             }
+        },
+        reviewStory: (state, action) => {
+            const mutatedStories = state.stories.map(story => {
+                if (story.id === action.payload.storyId) {
+                    story.status = action.payload.status;
+                }
+                return story;
+            });
+           
+            state.stories = mutatedStories;
         }
     }
 });
 
-export const {setStories} = listStoriesSlice.actions;
+export const {setStories, reviewStory} = listStoriesSlice.actions;
 
 export const getStories = () => async dispatch => {
     const headers = {
