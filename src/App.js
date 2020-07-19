@@ -1,28 +1,46 @@
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
-// import logo from './logo.svg';
-// import { Counter } from './features/counter/Counter';
-import { login } from './loginSlice';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Login } from './scenes/login/Login';
+import { CreateStory } from './scenes/createStory/CreateStory';
 import './App.css';
 
 function App() {
-  const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState(''); 
   return (
-    <div className="App">
-      <header className="App-header">
-        {/* <img src={logo} className="App-logo" alt="logo" /> */}
-        <input onChange={event => setEmail(event.target.value)} placeholder="E-mail Address" type="email" />
-        <input onChange={event => setPassword(event.target.value)} placeholder="Password" type="password"/>
-        <button onClick={() => dispatch(login(email, password)) } type="submit">Submit</button>
-        {/* <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p> */}
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/stories-create" component={CreateStory} />
+        <Route path="/stories-list" />
+        <Route path="/" component={Login} />
+      </Switch>
+    </Router>
   );
 }
+
+// function PrivateRoute({comp: Component, ...rest }) {
+//   console.log("is there auth key: ", localStorage.getItem('authToken'))
+//   localStorage.removeItem('authToken')
+//   return (
+//     <Route
+//       {...rest}
+//       render={({ location }) => {
+//         if (localStorage.getItem('authToken')) {
+//           console.log("GOT TOKEN")
+//           return (<Component  />);
+//         }
+//         else {
+//           console.log("GOT NO TOKEN")
+//           return (
+//             <Redirect
+//               to={{
+//                 pathname: "/",
+//               }}
+//             />
+//           )
+//         }
+//       }
+//       }
+//     />
+//   );
+// }
 
 export default App;

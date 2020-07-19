@@ -22,14 +22,16 @@ export const loginSlice = createSlice({
 
 export const { setCredentials } = loginSlice.actions;
 
-export const login = (email, password, isAdmin = false) => async dispatch => {
+export const login = (email, password, isAdmin) => async dispatch => {
+    const body = JSON.stringify({
+        email,
+        password,
+        isAdmin
+    });
+    console.log("body for lgoin: ", body)
     const response = await fetch('http://localhost:3000/api/v1/signin', {
         method: 'post',
-        body: JSON.stringify({
-            email,
-            password,
-            isAdmin
-        }),
+        body,
         headers: {'Content-Type': 'application/json'}
     });
     const json = await response.json();
@@ -37,5 +39,9 @@ export const login = (email, password, isAdmin = false) => async dispatch => {
     dispatch(setCredentials(json));
 
 }
+
+export const selectRole = state => state.login.role;
+
+export const selectAuthToken = state => state.login.token;
 
 export default loginSlice.reducer;
