@@ -16,9 +16,8 @@ export function Login({history}) {
         if (userRole) {
             localStorage.setItem('userRole', userRole);
             localStorage.setItem('authToken', authToken);
-            console.log("next scene pls: ", localStorage.getItem('authToken'));
         }
-    }, [userRole]);
+    }, [userRole, authToken]);
 
     if (userRole === 'user') {
         return (

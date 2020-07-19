@@ -76,7 +76,7 @@ export function CreateStory() {
                 description,
                 type,
                 complexity,
-                cost,
+                cost: parseInt(cost),
                 estimatedHrs
             }))} className="btn btn-info">Submit</button>
             

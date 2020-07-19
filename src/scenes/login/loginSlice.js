@@ -11,7 +11,6 @@ export const loginSlice = createSlice({
     },
     reducers: {
         setCredentials: (state, action) => {
-            console.log("setting creds: ", action)
             state.firstName = action.payload.firstName;
             state.lastName = action.payload.lastName;
             state.role = action.payload.role;
@@ -28,7 +27,7 @@ export const login = (email, password, isAdmin) => async dispatch => {
         password,
         isAdmin
     });
-    console.log("body for lgoin: ", body)
+
     const response = await fetch('http://localhost:3000/api/v1/signin', {
         method: 'post',
         body,

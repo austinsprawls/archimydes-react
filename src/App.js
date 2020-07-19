@@ -3,13 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Login } from './scenes/login/Login';
 import { CreateStory } from './scenes/createStory/CreateStory';
 import './App.css';
+import { ListStories } from './scenes/listStories/ListStories';
 
 function App() {
   return (
     <Router>
       <Switch>
         <Route path="/stories-create" component={CreateStory} />
-        <Route path="/stories-list" />
+        <Route path="/stories-list" component={ListStories} />
         <Route path="/" component={Login} />
       </Switch>
     </Router>
