@@ -7,7 +7,8 @@ export const loginSlice = createSlice({
         firstName: '',
         lastName: '',
         role: '',
-        token: ''
+        token: '',
+        isAuthenticated: false
     },
     reducers: {
         setCredentials: (state, action) => {
@@ -15,11 +16,15 @@ export const loginSlice = createSlice({
             state.lastName = action.payload.lastName;
             state.role = action.payload.role;
             state.token = action.payload.token;
-        }
+        },
+        isAuthenticated: (state, action) => {
+            console.log("is user auth: ", action)
+            state.isAuthenticated = action.payload;
+        } 
     }
 });
 
-export const { setCredentials } = loginSlice.actions;
+export const { setCredentials, isAuthenticated } = loginSlice.actions;
 
 export const login = (email, password, isAdmin) => async dispatch => {
     const body = JSON.stringify({
@@ -37,6 +42,18 @@ export const login = (email, password, isAdmin) => async dispatch => {
 
     dispatch(setCredentials(json));
 
+}
+
+export const checkAuthentication = () => async dispatch => {
+    const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `${localStorage.getItem('authToken')}`
+    };
+    const response = await fetch('http://localhost:3000/api/v1/stories', {
+        headers
+    });
+
+    dispatch(isAuthenticated(response.ok));
 }
 
 export const selectRole = state => state.login.role;

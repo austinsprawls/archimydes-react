@@ -1,46 +1,53 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Login } from './scenes/login/Login';
 import { CreateStory } from './scenes/createStory/CreateStory';
-import './App.css';
 import { ListStories } from './scenes/listStories/ListStories';
 import { ReviewStory } from './scenes/reviewStory/ReviewStory';
+
+// import { checkAuthentication } from './scenes/login/loginSlice'
+
+import './App.css';
+// import { useDispatch } from 'react-redux';
 
 function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/stories-create" component={CreateStory} />
-        <Route path="/stories-list" component={ListStories} />
-        <Route path="/stories-review" render={props => <ReviewStory {...props} />}/>
-        <Route path="/" component={Login} />
+        <Route path="/stories-create">
+          <CreateStory />
+        </Route>
+        <Route path="/stories-list">
+          <ListStories />
+        </Route>
+        <Route path="/stories-review" render={props =>  <ReviewStory {...props} />} />       
+        <Route path="/">
+          <Login />
+        </Route>
       </Switch>
     </Router>
   );
 }
 
-// function PrivateRoute({comp: Component, ...rest }) {
-//   console.log("is there auth key: ", localStorage.getItem('authToken'))
-//   localStorage.removeItem('authToken')
+// // A wrapper for <Route> that redirects to the login
+// // screen if you're not yet authenticated.
+// async function PrivateRoute({ children, ...rest }) {
+//   console.log("children and rest: ", children, rest)
+//   const dispatch = useDispatch();
+//   const isAuthenticated = await dispatch(checkAuthentication());
+//   console.log("check private route auth: ", isAuthenticated)
 //   return (
 //     <Route
 //       {...rest}
-//       render={({ location }) => {
-//         if (localStorage.getItem('authToken')) {
-//           console.log("GOT TOKEN")
-//           return (<Component  />);
-//         }
-//         else {
-//           console.log("GOT NO TOKEN")
-//           return (
-//             <Redirect
-//               to={{
-//                 pathname: "/",
-//               }}
-//             />
-//           )
-//         }
-//       }
+//       render={({ location }) =>
+//         localStorage.getItem('authToken') ?
+//          (children)
+//           :
+//            (
+//           <Redirect
+//             to="/"
+//           />
+//         )
 //       }
 //     />
 //   );

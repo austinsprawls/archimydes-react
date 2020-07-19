@@ -24,6 +24,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 4. For Admin Story Review, I imagined two ways of proceeding. 1) Use the same template as User Story Creation with disabled inputs, or 2) Use a different template that only shows the final text. I went with the second assumption because I believe it is more straightforward for the end user
 
+5. I assume an Admin can review an individual user story multiple times (i.e. Accept -> Reject -> Accept the same user story)
+
 ##  FULL create-react-app README DOCUMENTATION FOLLOWS BELOW 
 
 In the project directory, you can run:
